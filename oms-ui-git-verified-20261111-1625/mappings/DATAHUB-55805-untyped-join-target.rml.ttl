@@ -1,0 +1,52 @@
+@prefix ex:   <https://example.com/datahub55805/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix ql:   <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rml:  <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr:   <http://www.w3.org/ns/r2rml#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ex:ProductTableMapping a rr:TriplesMap;
+        rdfs:label             "Product table mapping"@en;
+        rml:logicalSource      [ rr:tableName  "PRODUCTS" ];
+        rr:predicateObjectMap  [ rr:objectMap  [ rr:column    "PRODUCT_ID";
+                                                 rr:datatype  xsd:string
+                                               ];
+                                 rr:predicate  ex:productId
+                               ];
+        rr:predicateObjectMap  [ rr:objectMap  [ rr:column    "MATERIAL_ID";
+                                                 rr:datatype  xsd:string
+                                               ];
+                                 rr:predicate  ex:productMaterialId
+                               ];
+        rr:predicateObjectMap  [ rr:objectMap  [ rr:joinCondition     [ rr:child   "MATERIAL_ID";
+                                                                        rr:parent  "MATERIAL_ID"
+                                                                      ];
+                                                 rr:parentTriplesMap  ex:MaterialTableMapping
+                                               ];
+                                 rr:predicate  ex:hasMaterial
+                               ];
+        rr:subjectMap          [ rr:class     ex:Product;
+                                 rr:template  "https://example.com/data/products/{PRODUCT_ID}"
+                               ] .
+
+ex:MaterialTableMapping a rr:TriplesMap;
+        rdfs:label             "Material table mapping without explicit TriplesMap type"@en;
+        rml:logicalSource      [ rr:tableName  "MATERIALS" ];
+        rr:predicateObjectMap  [ rr:objectMap  [ rr:joinCondition     [ rr:child   "MATERIAL_ID";
+                                                                        rr:parent  "MATERIAL_ID"
+                                                                      ];
+                                                 rr:parentTriplesMap  ex:ProductTableMapping
+                                               ];
+                                 rr:predicate  ex:isMaterialFor
+                               ];
+        rr:predicateObjectMap  [ rr:objectMap  [ rr:column    "MATERIAL_ID";
+                                                 rr:datatype  xsd:string
+                                               ];
+                                 rr:predicate  ex:materialId
+                               ];
+        rr:subjectMap          [ rr:class     ex:Material;
+                                 rr:template  "https://example.com/data/materials/{MATERIAL_ID}"
+                               ] .
