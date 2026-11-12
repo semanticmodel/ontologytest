@@ -1,0 +1,45 @@
+@prefix ex:   <https://example.com/datahub55805/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix ql:   <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rml:  <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr:   <http://www.w3.org/ns/r2rml#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ex:productMaterialId  a  owl:DatatypeProperty;
+        rdfs:domain  ex:Product;
+        rdfs:label   "Product material ID"@en;
+        rdfs:range   xsd:string .
+
+ex:ontology  a  owl:Ontology;
+        rdfs:label  "DATAHUB-55805 untyped join target test"@en .
+
+ex:productId  a  owl:DatatypeProperty;
+        rdfs:domain  ex:Product;
+        rdfs:label   "Product ID"@en;
+        rdfs:range   xsd:string .
+
+ex:Product  a  owl:Class;
+        rdfs:label  "Product"@en .
+
+ex:isMaterialFor  a  owl:ObjectProperty;
+        rdfs:domain    ex:Material;
+        rdfs:label     "Is material for"@en;
+        rdfs:range     ex:Product;
+        owl:inverseOf  ex:hasMaterial .
+
+ex:hasMaterial  a  owl:ObjectProperty;
+        rdfs:domain    ex:Product;
+        rdfs:label     "Has material"@en;
+        rdfs:range     ex:Material;
+        owl:inverseOf  ex:isMaterialFor .
+
+ex:materialId  a  owl:DatatypeProperty;
+        rdfs:domain  ex:Material;
+        rdfs:label   "Material ID"@en;
+        rdfs:range   xsd:string .
+
+ex:Material  a  owl:Class;
+        rdfs:label  "Material"@en .
