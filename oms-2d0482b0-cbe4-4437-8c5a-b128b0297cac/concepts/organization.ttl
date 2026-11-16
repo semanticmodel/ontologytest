@@ -1,0 +1,60 @@
+@prefix :     <https://example.org/ontology/organization#> .
+@prefix dhb:  <https://oracle.com/datahub/ontology/builder#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix ql:   <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rml:  <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr:   <http://www.w3.org/ns/r2rml#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/ontology/organization> a owl:Ontology;
+        rdfs:comment  "An example organization ontology with RML mappings and SHACL constraints."@en;
+        rdfs:label    "Organization ontology"@en .
+
+:Employee  a      owl:Class;
+        rdfs:label       "Employee"@en;
+        rdfs:subClassOf  :Person .
+
+:hasEmployee  a  owl:ObjectProperty;
+        rdfs:domain  :Department;
+        rdfs:label   "has Employee";
+        rdfs:range   :Employee .
+
+:NewClass  a      owl:Class;
+        rdfs:label       "NewClass";
+        skos:definition  "This is a definition" .
+
+:Person  a   owl:Class;
+        rdfs:label  "Person"@en .
+
+:Department  a  owl:Class;
+        rdfs:label  "Department"@en .
+
+:worksIn  a     owl:ObjectProperty;
+        rdfs:domain    :Employee;
+        rdfs:label     "works In";
+        rdfs:range     :Department;
+        owl:inverseOf  :hasEmployee .
+
+:employeeId  a  owl:DatatypeProperty;
+        rdfs:domain  :Employee;
+        rdfs:label   "employee Id";
+        rdfs:range   xsd:string .
+
+:departmentName  a  owl:DatatypeProperty;
+        rdfs:domain  :Department;
+        rdfs:label   "department Name";
+        rdfs:range   xsd:string .
+
+:fullName  a  owl:DatatypeProperty;
+        rdfs:domain  :Person;
+        rdfs:label   "full Name";
+        rdfs:range   xsd:string .
+
+:departmentId  a  owl:DatatypeProperty;
+        rdfs:domain  :Department;
+        rdfs:label   "department Id";
+        rdfs:range   xsd:string .
